@@ -3,7 +3,7 @@
  * Plugin Name: VHM Show Comments
  * Plugin URI: http://viktormorales.com
  * Description: Show comments on your pages, posts, sidebar with a shortcode or PHP code
- * Version: 1.0.0
+ * Version: 1.1
  * Author: Viktor H. Morales
  * Author URI: http://viktormorales.com
  * Text Domain: viktormorales
@@ -42,6 +42,7 @@ if(!class_exists('VHM_Show_Comments'))
 			
 			add_action('admin_menu', array(&$this, 'admin_menu'));
             add_action('admin_init', array(&$this, 'admin_init'));
+			
         } // END public function __construct
 
         /**
@@ -188,4 +189,13 @@ if(class_exists('VHM_Show_Comments'))
 	add_shortcode( 'vhm_show_comments', 'vhm_show_comments' );
 	
 	add_filter('widget_text', 'do_shortcode'); 
+	
+	function my_enqueue($hook) {
+		if ( 'edit.php' != $hook ) {
+			return;
+		}
+
+		wp_enqueue_script( 'jquery-ui-tabs', plugin_dir_url( __FILE__ ) . 'myscript.js' );
+	}
+	add_action( 'admin_enqueue_scripts', 'my_enqueue' );
 }

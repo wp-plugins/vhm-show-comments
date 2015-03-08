@@ -3,7 +3,7 @@ Contributors: viktormorales
 Tags: comments
 Requires at least: 3.1
 Tested up to: 4.1
-Stable tag: trunk
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,3 +23,10 @@ Major features in VHM Show Comments includes:
 1. Upload the VHM Show Comments plugin to your blog
 1. Activate the plugin
 1. Go to `Settings > VHM Show Comments` for further information
+
+== Changelog ==
+
+= 1.1 =
+*Release Date - 8th March, 2015*
+
+* Some visual changes
