@@ -3,7 +3,7 @@
  * Plugin Name: VHM Show Comments
  * Plugin URI: http://viktormorales.com
  * Description: Show comments on your pages, posts, sidebar with a shortcode or PHP code
- * Version: 1.1
+ * Version: 1.2
  * Author: Viktor H. Morales
  * Author URI: http://viktormorales.com
  * Text Domain: viktormorales
@@ -100,6 +100,9 @@ if(!class_exists('VHM_Show_Comments'))
 			if( isset( $input['show_quantity'] ) )
 				$new_input['show_quantity'] = absint( $input['show_quantity'] );
 				
+			if( isset( $input['order'] ) )
+				$new_input['order'] = $input['order'];
+				
 			if( isset( $input['before_items'] ) )
 				$new_input['before_items'] = $input['before_items'];
 				
@@ -127,39 +130,48 @@ if(!class_exists('VHM_Show_Comments'))
 		
 		public function output( $atts = false )
 		{
+			global $wpdb;
+			
 			// Get the shortcode/function arguments
 			extract( shortcode_atts( array(
 				'number' => ($number) ? $number : $this->options['show_quantity'],
 				'id' => ($id) ? $id : false,
-				'post_id' => ($post_id) ? $post_id : false
+				'post_id' => ($post_id) ? $post_id : false,
+				'order' => ($oder) ? 'DESC' : $this->options['order']
 			), $atts ) );
 			
 			// Print the before_items option
 			$out = $this->options['before_items'];
 			
+			$sql = 'SELECT * FROM wp_comments WHERE comment_approved="1"';
 			if ($id)
 			{
-				$comment = get_comment($id);
-				$out .= str_replace(
-					array( "%COMMENT%", "%URL%", "%AUTHOR%" ),
-					array( $comment->comment_content, $comment->comment_author_url, $comment->comment_author ),
-					$this->options['items_template'] 
-				);
+				$sql .= ' AND comment_ID = ' . $id;
+				$sql .= ' LIMIT 1';
 			}
-			else
+			else 
 			{
-				$comments = get_comments('&status=approve&number=' . $number . '&post_id=' . $post_id);
-				if ($comments):
-					foreach ($comments as $comment)
-					{
-						$out .= str_replace(
-							array( "%COMMENT%", "%URL%", "%AUTHOR%" ),
-							array( $comment->comment_content, $comment->comment_author_url, $comment->comment_author ),
-							$this->options['items_template'] 
-						);
-					}
-				endif;
+				if ($post_id)
+					$sql .= ' AND comment_post_ID = ' . $post_id;
+				if ($order == 'ASC' || $order == 'DESC')
+					$sql .= ' ORDER BY comment_ID ' . $order;
+				else
+					$sql .= ' ORDER BY RAND()';
+				if ($number)
+					$sql .= ' LIMIT ' . $number;
 			}
+			
+			$comments = $wpdb->get_results( $sql, OBJECT );
+			if ($comments):
+				foreach ($comments as $comment)
+				{
+					$out .= str_replace(
+						array( "%COMMENT%", "%URL%", "%AUTHOR%", "%POST_URL%", "%POST_TITLE%" ),
+						array( $comment->comment_content, $comment->comment_author_url, $comment->comment_author, get_permalink($comment->comment_post_ID), get_the_title($comment->comment_post_ID) ),
+						$this->options['items_template'] 
+					);
+				}
+			endif;
 			
 			// Print the after_items option
 			$out .= $this->options['after_items'];

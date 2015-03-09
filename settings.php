@@ -46,9 +46,20 @@
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label for="before_items"><?php _e('Before items', 'vhm-show-comments')?></label></th>
+						<th scope="row"><label for="order"><?php _e('Order by', 'vhm-show-comments')?></label></th>
 						<td>
-							<input type="text" name="vhmShowCommentsSettings[before_items]" id="show_quantity" value="<?php echo (!empty($options['before_items'])) ? esc_attr($options['before_items']) : '<ol>' ; ?>" />
+							<select name="vhmShowCommentsSettings[order]">
+								<option value="DESC"<?php echo ($options['order'] == 'DESC') ? ' selected="selected"' : false ; ?>><?php _e('Descendant', 'vhm-show-comments'); ?></option>
+								<option value="ASC"<?php echo ($options['order'] == 'ASC') ? ' selected="selected"' : false ; ?>><?php _e('Ascendant', 'vhm-show-comments'); ?></option>
+								<option value="RAND"<?php echo ($options['order'] == 'RAND') ? ' selected="selected"' : false ; ?>><?php _e('Random', 'vhm-show-comments'); ?></option>
+							</select>
+							<p class="description"><?php _e('Choose how the comments should be ordered', 'vhm-show-comments'); ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row"><label for="before_items"><?php _e('Before items', 'vhm-show-comments'); ?></label></th>
+						<td>
+							<input type="text" name="vhmShowCommentsSettings[before_items]" id="before_items" value="<?php echo (!empty($options['before_items'])) ? esc_attr($options['before_items']) : '<ol>' ; ?>" />
 							<p class="description">
 								<?php 
 									printf(
@@ -70,6 +81,8 @@
 							<p class="description"><?php _e('%COMMENT% is the comment', 'vhm-show-comments'); ?></p>
 							<p class="description"><?php _e('%URL% is the URL provided by the author of the comment', 'vhm-show-comments'); ?></p>
 							<p class="description"><?php _e('%AUTHOR% is the name of the author of the comment', 'vhm-show-comments'); ?></p>
+							<p class="description"><?php _e('%POST_TITLE% is the title of the post where the user left the comment', 'vhm-show-comments'); ?></p>
+							<p class="description"><?php _e('%POST_URL% is the URL of the post where the user left the comment', 'vhm-show-comments'); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
