@@ -22,21 +22,22 @@
 	</script>
 	
 	<h3><?php _e('Description', 'vhm-show-comments'); ?></h3>
-	<p><?php _e('Retrieve a list of comments or a comment data given a comment ID.', 'vhm-show-comments'); ?></p>
+	<p><?php _e('Get a list of comments (or a single comment providing its ID) and show them on a page, post or sidebar using a shortcode or a PHP code.', 'vhm-show-comments'); ?></p>
 	
 	<form method="post" action="options.php"> 
 		<?php @settings_fields('vhmShowCommentsGroup'); ?>
 		<?php @do_settings_fields('vhmShowCommentsGroup'); ?>
 		
 		<h2 class="nav-tab-wrapper">
-			<a href="#settings" class="nav-tab"><?php _e('Settings', 'vhm-show-comments'); ?></a>
-			<a href="#usage" class="nav-tab"><?php _e('Usage', 'vhm-show-comments'); ?></a>
+			<a href="#settings" class="nav-tab">1. <?php _e('Settings', 'vhm-show-comments'); ?></a>
+			<a href="#usage" class="nav-tab">2. <?php _e('Usage', 'vhm-show-comments'); ?></a>
 			<a href="#about" class="nav-tab"><?php _e('About', 'vhm-show-comments'); ?></a>
 		</h2>	
 		
 		<div id="tabs">
 			<div id="settings">
 				<h3><?php _e('General settings', 'vhm-show-comments')?></h3>
+				
 				<table class="form-table">  
 					<tr valign="top">
 						<th scope="row"><label for="show_quantity"><?php _e('Number of comments to show', 'vhm-show-comments')?></label></th>
@@ -103,61 +104,91 @@
 			</div>
 				
 			<div id="usage">
-				<h3><?php _e('Usage', 'vhm-show-comments'); ?></h3>
-				<ol>
-					<li>
-						<?php 
-							printf(
-								__('Use the shortcode %s in the content of the pages, posts or text widgets;', 'vhm-show-comments'),
-								'<code>[vhm-show-comments]</code>'
-							);
-							?>
-						</li>
-					<li>
-						<?php 
-							printf(
-								__('or use the PHP code %s in your template.', 'vhm-show-comments'),
-								'<code>&lt;?php echo vhm_show_comments(); ?&gt;</code>'
-							);
-						?>
-					</li>
-				</ol>
-			
-				<h3><?php _e('Parameters', 'vhm-show-comments'); ?></h3>
-				<dl>
-					<dt><tt>$number</tt></dt>
-					<dd>
-						(int) The number of the comments to show
-						<dl>
-							Default: 5
-						</dl>
-					</dd>
-					<dt><tt>$id</tt></dt>
-					<dd>
-						(int) (option) The ID of the comment you'd like to fetch
-						<dl>
-							Default: None
-						</dl>
-					</dd>
-					<dt><tt>$post_id</tt></dt>
-					<dd>
-						(int) (option) The ID of the post you'd like to fetch the comments
-						<dl>
-							Default: None
-						</dl>
-					</dd>
-				</dl>
-			
-				<h3><?php _e('Examples', 'vhm-show-comments'); ?></h3>
-				<p><?php _e('Show the last 3 comments:', 'vhm-show-comments'); ?></p>
-				<pre>[vhm_show_comments number="3"]</pre>
+				<h3><?php _e( 'Usage', 'vhm-show-comments' ); ?></h3>
+				<p><?php _e( 'Copy and paste the following shortcode directly into the post, page or sidebar (widget) where you would like to show the comments:', 'vhm-show-comments' ); ?></p>
+				<p><input type="text" value="[vhm_show_comments]" readonly="readonly" style="text-align: center;" onclick="this.focus();this.select();" /></p>
 				
-				<p><?php _e('Show the comment with the ID 1:', 'vhm-show-comments'); ?></p>
-				<pre>[vhm_show_comments id="1"]</pre>
+				<p><?php _e('Or copy and paste the following PHP code on your templates files:', 'vhm-show-comments'); ?></p>
+				<p><input type="text" value="&lt;?php echo vhm_show_comments(); ?&gt;" readonly="readonly" style="text-align: center;" onclick="this.focus();this.select();" /></p>
 				
-				<p><?php _e('Show 3 comments from the post with the ID 2:', 'vhm-show-comments'); ?></p>
-				<pre>[vhm_show_comments number="3" post_id="2"]</pre>
+				<hr>
+				<h3><?php _e('Parameters and examples', 'vhm-show-comments'); ?></h3>
+				<table class="wp-list-table widefat fixed tags">
+					<thead>
+						<tr>
+							<th scope="col" class="column-cb desc" style=""><?php _e( 'Option', 'vhm-show-comments' ); ?></th>
+							<th scope="col" class="column-name desc" style=""><?php _e('Description', 'vhm-show-comments')?></th>
+							<th scope="col" class="column-description desc" style=""><?php _e( 'Example', 'vhm-show-comments' ); ?></th>	
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<th scope="col" class="column-cb" style=""><?php _e( 'Option', 'vhm-show-comments' ); ?></th>
+							<th scope="col" class="column-name desc" style=""><?php _e('Description', 'vhm-show-comments')?></th>
+							<th scope="col" class="column-description" style=""><?php _e( 'Example', 'vhm-show-comments' ); ?></th>	
+						</tr>
+					</tfoot>
+					<tbody>
+						<tr class="alternate">		
+							<td class="column-name">
+								<p><strong>(int) (optional) $number</strong></p>
+								<p><?php printf( __( 'Default: %s', 'vhm-show-comments' ), '<em>5</em>' )?></p>
+							</td>
+							<td class="column-description">
+								<?php _e( 'The number of the comments to show', 'vhm-show-comments' ); ?>
+							</td>
+							<td><code>[vhm_show_comments number="2"]</code></td>
+						</tr>
+						<tr>		
+							<td class="column-name">
+								<p><strong>(string) (optional) $order</strong></p>
+								<p><?php _e( 'Values:', 'vhm-show-comments' ); ?></p>
+								<ul>
+									<li>- 'ASC', ascendant order</li>
+									<li>- 'DESC', descendant order</li>
+									<li>- 'RAND', random order</li>
+								</ul>
+								<p><?php printf( __( 'Default: %s', 'vhm-show-comments' ), '<em>DESC</em>' )?></p>
+							</td>
+							<td class="column-description">
+								<?php _e( 'The order of how you\'d like to show the comments', 'vhm-show-comments' ); ?>
+							</td>
+							<td><code>[vhm_show_comments order="ASC"]</code></td>
+						</tr>
+						<tr class="alternate">		
+							<td class="column-name">
+								<p><strong>(int) (optional) $id</strong></p>
+								<p><?php printf( __( 'Default: %s', 'vhm-show-comments' ), '<em>false</em>' )?></p>
+							</td>
+							<td class="column-description">
+								<?php _e( 'The ID of the comment you\'d like to fetch', 'vhm-show-comments' ); ?>
+							</td>
+							<td><code>[vhm_show_comments id="45"]</code></td>
+						</tr>
+						<tr>		
+							<td class="column-name">
+								<p><strong>(int) (optional) $post_id</strong></p>
+								<p><?php printf( __( 'Default: %s', 'vhm-show-comments' ), '<em>false</em>' )?></p>
+							</td>
+							<td class="column-description">
+								<?php _e( 'The ID of the post you\'d like to fetch the comments', 'vhm-show-comments' ); ?>
+							</td>
+							<td><code>[vhm_show_comments post_id="206"]</code></td>
+						</tr>
+						<tr class="alternate">		
+							<td class="column-name">
+								<p><strong>(int) (optional) $tag_id</strong></p>
+								<p><?php printf( __( 'Default: %s', 'vhm-show-comments' ), '<em>false</em>' )?></p>
+							</td>
+							<td class="column-description">
+								<?php _e( 'The ID of the category or tag you\'d like to fetch the comments', 'vhm-show-comments' ); ?>
+							</td>
+							<td><code>[vhm_show_comments tag_id="8"]</code></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
+			
 			
 			<div id="about">
 				<h3>About</h3>

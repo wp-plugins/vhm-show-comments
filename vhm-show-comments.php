@@ -3,7 +3,7 @@
  * Plugin Name: VHM Show Comments
  * Plugin URI: http://viktormorales.com
  * Description: Show comments on your pages, posts, sidebar with a shortcode or PHP code
- * Version: 1.2
+ * Version: 1.3
  * Author: Viktor H. Morales
  * Author URI: http://viktormorales.com
  * Text Domain: viktormorales
@@ -58,7 +58,6 @@ if(!class_exists('VHM_Show_Comments'))
          */     
         public static function deactivate()
         {
-            // Do nothing
         } // END public static function deactivate
 		
 		/**
@@ -137,29 +136,40 @@ if(!class_exists('VHM_Show_Comments'))
 				'number' => ($number) ? $number : $this->options['show_quantity'],
 				'id' => ($id) ? $id : false,
 				'post_id' => ($post_id) ? $post_id : false,
+				'tag_id' => ($tag_id) ? $tad_id :  false,
 				'order' => ($oder) ? 'DESC' : $this->options['order']
 			), $atts ) );
 			
 			// Print the before_items option
 			$out = $this->options['before_items'];
 			
-			$sql = 'SELECT * FROM wp_comments WHERE comment_approved="1"';
+			$sql = 'SELECT c.* FROM wp_comments AS c';
+			
+			$where = ' WHERE 1';
 			if ($id)
 			{
-				$sql .= ' AND comment_ID = ' . $id;
-				$sql .= ' LIMIT 1';
+				$where = ' WHERE c.comment_ID = ' . $id;
 			}
-			else 
+			elseif ($post_id)
 			{
-				if ($post_id)
-					$sql .= ' AND comment_post_ID = ' . $post_id;
-				if ($order == 'ASC' || $order == 'DESC')
-					$sql .= ' ORDER BY comment_ID ' . $order;
-				else
-					$sql .= ' ORDER BY RAND()';
-				if ($number)
-					$sql .= ' LIMIT ' . $number;
+				$where = ' WHERE c.comment_post_ID = ' . $post_id;
 			}
+			elseif ($tag_id)
+			{
+				$sql .= ' LEFT JOIN wp_posts AS p ON c.comment_post_ID=p.ID';
+				$sql .= ' LEFT JOIN wp_term_relationships AS tr ON tr.object_id = p.ID';
+				$where = ' WHERE tr.term_taxonomy_id = ' . $tag_id;
+			}
+			
+			$sql .= $where . ' AND c.comment_approved="1" GROUP BY c.comment_ID';
+			
+			if ($order == 'ASC' || $order == 'DESC')
+				$sql .= ' ORDER BY c.comment_ID ' . $order;
+			else
+				$sql .= ' ORDER BY RAND()';
+			
+			if ($number)
+				$sql .= ' LIMIT ' . $number;
 			
 			$comments = $wpdb->get_results( $sql, OBJECT );
 			if ($comments):
@@ -200,14 +210,6 @@ if(class_exists('VHM_Show_Comments'))
 	}
 	add_shortcode( 'vhm_show_comments', 'vhm_show_comments' );
 	
-	add_filter('widget_text', 'do_shortcode'); 
+	add_filter('widget_text', 'do_shortcode');
 	
-	function my_enqueue($hook) {
-		if ( 'edit.php' != $hook ) {
-			return;
-		}
-
-		wp_enqueue_script( 'jquery-ui-tabs', plugin_dir_url( __FILE__ ) . 'myscript.js' );
-	}
-	add_action( 'admin_enqueue_scripts', 'my_enqueue' );
 }

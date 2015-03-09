@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: VHM Show Comments\n"
-"POT-Creation-Date: 2015-03-09 01:54+0200\n"
-"PO-Revision-Date: 2015-03-09 01:56+0200\n"
+"POT-Creation-Date: 2015-03-09 19:51+0200\n"
+"PO-Revision-Date: 2015-03-09 19:53+0200\n"
 "Last-Translator: Viktor H. Morales <viktorhugomorales@gmail.com>\n"
 "Language-Team: viktormorales.com <viktorhugomorales@gmail.com>\n"
 "Language: es_ES\n"
@@ -15,21 +15,24 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../settings.php:24
+#: ../settings.php:24 ../settings.php:120 ../settings.php:127
 msgid "Description"
 msgstr "Descripción"
 
 #: ../settings.php:25
-msgid "Retrieve a list of comments or a comment data given a comment ID."
+msgid ""
+"Get a list of comments (or a single comment providing its ID) and show them "
+"on a page, post or sidebar using a shortcode or a PHP code."
 msgstr ""
-"Obtiene una lista de comentarios o la información de un comentario según el "
-"ID."
+"Obtiene una lista de comentarios (o un solo comentario si expecificas su ID) "
+"y los muestra en una página, entrada o barra lateral usando un shortcode o "
+"un código en PHP."
 
 #: ../settings.php:32
 msgid "Settings"
 msgstr "Opciones"
 
-#: ../settings.php:33 ../settings.php:106
+#: ../settings.php:33 ../settings.php:107
 msgid "Usage"
 msgstr "Uso"
 
@@ -41,116 +44,168 @@ msgstr "Acerca"
 msgid "General settings"
 msgstr "Opciones generales"
 
-#: ../settings.php:42
+#: ../settings.php:43
 msgid "Number of comments to show"
 msgstr "Cantidad de comentarios a mostrar"
 
-#: ../settings.php:45
+#: ../settings.php:46
 #, php-format
 msgid "%s to hide the comments"
 msgstr "%s para ocultar los comentarios"
 
-#: ../settings.php:49
+#: ../settings.php:50
 msgid "Order by"
 msgstr "Ordenar"
 
-#: ../settings.php:52
+#: ../settings.php:53
 msgid "Descendant"
 msgstr "Descendente"
 
-#: ../settings.php:53
+#: ../settings.php:54
 msgid "Ascendant"
 msgstr "Ascendente"
 
-#: ../settings.php:54
+#: ../settings.php:55
 msgid "Random"
 msgstr "Al azar"
 
-#: ../settings.php:56
+#: ../settings.php:57
 msgid "Choose how the comments should be ordered"
 msgstr "Elige el orden en que se mostrarán los comentarios"
 
-#: ../settings.php:60
+#: ../settings.php:61
 msgid "Before items"
 msgstr "Antes de los items"
 
-#: ../settings.php:66
+#: ../settings.php:67
 msgid "Add any content BEFORE displaying the comments"
 msgstr "Agrega cualquier contenido ANTES de mostrar los comentarios"
 
-#: ../settings.php:74
+#: ../settings.php:75
 msgid "Template"
 msgstr "Plantilla"
 
-#: ../settings.php:80
+#: ../settings.php:81
 msgid "Variables"
 msgstr "Variables"
 
-#: ../settings.php:81
+#: ../settings.php:82
 msgid "%COMMENT% is the comment"
 msgstr "%COMMENT% es el contenido del comentario"
 
-#: ../settings.php:82
+#: ../settings.php:83
 msgid "%URL% is the URL provided by the author of the comment"
 msgstr "%URL% es la URL provista por el autor del comentario"
 
-#: ../settings.php:83
+#: ../settings.php:84
 msgid "%AUTHOR% is the name of the author of the comment"
 msgstr "%AUTHOR% es el nombre del autor del comentario"
 
-#: ../settings.php:84
+#: ../settings.php:85
 msgid "%POST_TITLE% is the title of the post where the user left the comment"
 msgstr ""
 "%POST_TITLE% es el título de la entrada donde el usuario dejó el comentario"
 
-#: ../settings.php:85
+#: ../settings.php:86
 msgid "%POST_URL% is the URL of the post where the user left the comment"
 msgstr "%POST_URL% es la URL de la entrada donde el usuario dejó el comentario"
 
-#: ../settings.php:89
+#: ../settings.php:90
 msgid "After items"
 msgstr "Después de los items"
 
-#: ../settings.php:95
+#: ../settings.php:96
 msgid "Add any content AFTER displaying the comments"
 msgstr "Agregue cualquier contenido DESPUES de mostrar los comentarios"
 
-#: ../settings.php:111
-#, php-format
+#: ../settings.php:108
 msgid ""
-"Use the shortcode %s in the content of the pages, posts or text widgets;"
+"Copy and paste the following shortcode directly into the post, page or "
+"sidebar (widget) where you would like to show the comments:"
 msgstr ""
-"Utilice el shortcode %s en el contenido de sus páginas, entradas o textos de "
-"widgets;"
+"Copia y pega el siguiente shortcode directo en la página, entrada o barra "
+"lateral (widget) donde quieras mostrar los comentarios:"
 
-#: ../settings.php:119
+#: ../settings.php:111
+msgid "Or copy and paste the following PHP code on your templates files:"
+msgstr "O copia y pega el siguiente código PHP en el archivo de tu plantilla:"
+
+#: ../settings.php:115
+msgid "Parameters and examples"
+msgstr "Parámetros y ejemplos"
+
+#: ../settings.php:119 ../settings.php:126
+msgid "Option"
+msgstr "Opción"
+
+#: ../settings.php:121 ../settings.php:128
+msgid "Example"
+msgstr "Ejemplo"
+
+#: ../settings.php:135 ../settings.php:151 ../settings.php:161
+#: ../settings.php:171 ../settings.php:181
 #, php-format
-msgid "or use the PHP code %s in your template."
-msgstr "o utilice el código PHP %s en su plantilla."
+msgid "Default: %s"
+msgstr "Por defecto: %s"
 
-#: ../settings.php:126
-msgid "Parameters"
-msgstr "Parámetros"
+#: ../settings.php:138
+msgid "The number of the comments to show"
+msgstr "El número de comentarios a mostrar"
 
-#: ../settings.php:151
-msgid "Examples"
-msgstr "Ejemplos"
+#: ../settings.php:145
+msgid "Values:"
+msgstr "Valores:"
 
-#: ../settings.php:152
-msgid "Show the last 3 comments:"
-msgstr "Muestra los últimos 3 comentarios:"
+#: ../settings.php:154
+msgid "The order of how you'd like to show the comments"
+msgstr "El orden en como deseas mostrar los comentarios"
 
-#: ../settings.php:155
-msgid "Show the comment with the ID 1:"
-msgstr "Mostrar el comentario con el ID 1"
+#: ../settings.php:164
+msgid "The ID of the comment you'd like to fetch"
+msgstr "El ID del comentario que deseas mostrar"
 
-#: ../settings.php:158
-msgid "Show 3 comments from the post with the ID 2:"
-msgstr "Mostrar 3 comentarios de la entrada con el ID 2:"
+#: ../settings.php:174
+msgid "The ID of the post you'd like to fetch the comments"
+msgstr "El ID de la entrada que quieras mostrar"
 
-#: ../vhm-show-comments.php:124
+#: ../settings.php:184
+msgid "The ID of the category or tag you'd like to fetch the comments"
+msgstr ""
+"El ID de la categoria o etiqueta de los cuales quieras mostrar los "
+"comentarios"
+
+#: ../vhm-show-comments.php:123
 msgid "You do not have sufficient permissions to access this page."
 msgstr "No tienes suficientes permisos para acceder a esta página."
+
+#~ msgid "Retrieve a list of comments or a comment data given a comment ID."
+#~ msgstr ""
+#~ "Obtiene una lista de comentarios o la información de un comentario según "
+#~ "el ID."
+
+#~ msgid ""
+#~ "Use the shortcode %s in the content of the pages, posts or text widgets;"
+#~ msgstr ""
+#~ "Utilice el shortcode %s en el contenido de sus páginas, entradas o textos "
+#~ "de widgets;"
+
+#~ msgid "or use the PHP code %s in your template."
+#~ msgstr "o utilice el código PHP %s en su plantilla."
+
+#~ msgid "Parameters"
+#~ msgstr "Parámetros"
+
+#~ msgid "Examples"
+#~ msgstr "Ejemplos"
+
+#~ msgid "Show the last 3 comments:"
+#~ msgstr "Muestra los últimos 3 comentarios:"
+
+#~ msgid "Show the comment with the ID 1:"
+#~ msgstr "Mostrar el comentario con el ID 1"
+
+#~ msgid "Show 3 comments from the post with the ID 2:"
+#~ msgstr "Mostrar 3 comentarios de la entrada con el ID 2:"
 
 #~ msgid "Show the comment with the ID number 1:"
 #~ msgstr "Muestra el comentario con el ID 1"
